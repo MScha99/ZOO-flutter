@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zooapp/screens/homescreen.dart';
-import 'package:zooapp/widgets/navigationbar.dart';
+
 import 'package:zooapp/widgets/custompageroute.dart';
 
 class TourProgramScreen extends StatelessWidget {
@@ -11,7 +11,6 @@ class TourProgramScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const MyNavBar(),
       appBar: AppBar(
         title: const Text('Plan wycieczki'),
       ),
