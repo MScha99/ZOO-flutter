@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:zooapp/screens/homescreen.dart';
 import 'package:zooapp/screens/testowa.dart';
+import 'package:zooapp/screens/mapscreen.dart';
 import 'package:zooapp/screens/tourprogramscreen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -82,11 +83,19 @@ final _router = GoRouter(
             path: '/map',
             pageBuilder: (context, state) {
               return const NoTransitionPage(
-                child: Scaffold(
-                  body: Center(child: Text("tu bedzie strona z mapą")),
-                ),
+                child: MapScreen(),
               );
-            }),
+            },
+            routes: <RouteBase>[
+              GoRoute(
+                path: 'testowa',
+                pageBuilder: (context, state) {
+                  return const NoTransitionPage(
+                    child: TestowaScreen(),
+                  );
+                },
+              )
+            ]),
         GoRoute(
             parentNavigatorKey: _shellNavigatorKey,
             path: '/program',
