@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zooapp/screens/homescreen.dart';
-
+import 'package:zooapp/widgets/sql_helper.dart';
 import 'package:zooapp/widgets/custompageroute.dart';
 
 class TourProgramScreen extends StatelessWidget {
@@ -22,13 +22,9 @@ class TourProgramScreen extends StatelessWidget {
             const Text('wycieczka'),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  CustomPageRoute(
-                    builder: (context) => const HomeScreen(),
-                  ),
-                );
+                context.push('/home/testowa');
               },
-              child: const Text('Go to Navigation Example'),
+              child: const Text('do home/testowa'),
             ),
           ],
         ),

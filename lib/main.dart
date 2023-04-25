@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:zooapp/widgets/sql_helper.dart';
 import 'package:zooapp/screens/homescreen.dart';
 import 'package:zooapp/screens/testowa.dart';
 import 'package:zooapp/screens/tourprogramscreen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:zooapp/screens/searchscreen.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  print(await SQLHelper.getAnimals());
 }
 
 class MyApp extends StatelessWidget {
@@ -100,10 +102,7 @@ final _router = GoRouter(
             path: '/search',
             pageBuilder: (context, state) {
               return const NoTransitionPage(
-                child: Scaffold(
-                  body: Center(
-                      child: Text("tu będzie wyszukiwarka z listy zwierzat")),
-                ),
+                child: SearchScreen(),
               );
             }),
       ],

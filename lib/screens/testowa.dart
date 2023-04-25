@@ -20,12 +20,6 @@ class TestowaScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('testowa pod adresem /home/testowa'),
-            ElevatedButton(
-              onPressed: () {
-                context.push('/home/testowa');
-              },
-              child: const Text('strona testowa'),
-            ),
           ],
         ),
       ),
