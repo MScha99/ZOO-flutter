@@ -9,7 +9,10 @@ import 'package:zooapp/screens/searchscreen.dart';
 void main() async {
   runApp(const MyApp());
   WidgetsFlutterBinding.ensureInitialized();
-  print(await SQLHelper.getAnimals());
+  // final database = SQLHelper();
+  // final program = await database.getProgram();
+  // print(program);
+  bool useMaterial3 = true;
 }
 
 class MyApp extends StatelessWidget {

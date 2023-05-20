@@ -7,12 +7,14 @@ class Animal {
   final String name;
   final String description;
   final int visited;
+  final int onlist;
   final int photographed;
 
   const Animal({
     required this.id,
     required this.name,
     required this.description,
+    required this.onlist,
     required this.visited,
     required this.photographed,
   });
@@ -23,7 +25,7 @@ class SQLHelper {
     return sql.openDatabase('zoo_database.db', version: 1,
         onCreate: (db, version) async {
       await db.execute(
-          'CREATE TABLE animals (id INTEGER PRIMARY KEY, name TEXT, description TEXT, visited INTEGER DEFAULT 0, photographed INTEGER DEFAULT 0)');
+          'CREATE TABLE animals (id INTEGER PRIMARY KEY, name TEXT, description TEXT, visited INTEGER DEFAULT 0, onlist INTEGER DEFAULT 0, photographed INTEGER DEFAULT 0)');
       await db.insert('animals', {
         'name': 'Zebra stepowa',
         'description':
@@ -38,6 +40,7 @@ class SQLHelper {
         'name': 'Żyrafa',
         'description':
             'Żyrafa jest najwyższym lądowym zwierzęciem na Ziemi. Ma długie szyje i nogi, i występuje na sawannach i w lasach Afryki.',
+        'onlist': 1,
       });
       await db.insert('animals', {
         'name': 'Lew',
@@ -57,28 +60,32 @@ class SQLHelper {
     });
   }
 
-  // // A method that retrieves all animals from animals table.
-  // Future<List<Animal>> animals() async {
-  //   // Get a reference to the database.
-  //   final db = await SQLHelper.db();
-
-  //   // Query the table for all animals.
-  //   final List<Map<String, dynamic>> maps = await db.query('animals');
-
-  //   // Convert the List<Map<String, dynamic> into a List<Dog>.
-  //   return List.generate(maps.length, (i) {
-  //     return Animal(
-  //       id: maps[i]['id'],
-  //       name: maps[i]['name'],
-  //       description: maps[i]['description'],
-  //       visited: maps[i]['visited'],
-  //       photographed: maps[i]['photographed'],
-  //     );
-  //   });
-  // }
+  static Future<void> deleteDatabase() async {
+    await sql.deleteDatabase('zoo_database.db');
+  }
 
   static Future<List<Map<String, dynamic>>> getAnimals() async {
+    // await deleteDatabase();
     final db = await SQLHelper.db();
     return db.query('animals', orderBy: "id");
+  }
+
+  Future<List<Animal>> getProgram() async {
+    final db = await SQLHelper.db();
+
+    final List<Map<String, dynamic>> maps = await db
+        .rawQuery('SELECT * FROM animals WHERE onlist=1 ORDER BY "animals"');
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(maps.length, (i) {
+      return Animal(
+        id: maps[i]['id'],
+        name: maps[i]['name'],
+        description: maps[i]['description'],
+        visited: maps[i]['visited'],
+        onlist: maps[i]['onList'],
+        photographed: maps[i]['photographed'],
+      );
+    });
   }
 }
