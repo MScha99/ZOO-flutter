@@ -22,6 +22,7 @@ class Animal {
 
 class SQLHelper {
   static Future<sql.Database> db() async {
+    //await deleteDatabase();
     return sql.openDatabase('zoo_database.db', version: 1,
         onCreate: (db, version) async {
       await db.execute(
@@ -70,22 +71,30 @@ class SQLHelper {
     return db.query('animals', orderBy: "id");
   }
 
-  Future<List<Animal>> getProgram() async {
+  static Future<List<Map<String, dynamic>>> getAnimalsList() async {
+    // await deleteDatabase();
     final db = await SQLHelper.db();
-
-    final List<Map<String, dynamic>> maps = await db
-        .rawQuery('SELECT * FROM animals WHERE onlist=1 ORDER BY "animals"');
-
-    // Convert the List<Map<String, dynamic> into a List<Dog>.
-    return List.generate(maps.length, (i) {
-      return Animal(
-        id: maps[i]['id'],
-        name: maps[i]['name'],
-        description: maps[i]['description'],
-        visited: maps[i]['visited'],
-        onlist: maps[i]['onList'],
-        photographed: maps[i]['photographed'],
-      );
-    });
+    return db
+        .rawQuery('SELECT * FROM animals WHERE "onlist"=1 ORDER BY "name"');
   }
+
+  static Future<void> updateAnimalProperty(
+      int id, String property, dynamic value) async {
+    final db = await SQLHelper.db();
+    await db.update('animals', {property: value},
+        where: 'id = ?', whereArgs: [id]);
+  }
+
+//   static Future<List<Map<String, dynamic>>> getProgram() async {
+//     final db = await SQLHelper.db();
+//     final List<Map<String, dynamic>> maps =
+//         await db.rawQuery('SELECT * FROM animals ORDER BY "animals"');
+//     return List.generate(maps.length, (i) {
+// return Animal(
+//   name: maps[i]['name'],
+//   visited: maps[i]['visited'],
+//  );
+//     });
+
+//   }
 }

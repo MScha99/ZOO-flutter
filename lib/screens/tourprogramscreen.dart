@@ -11,56 +11,93 @@ class TourProgramScreen extends StatefulWidget {
 }
 
 class _TourProgramScreenState extends State<TourProgramScreen> {
-  late Future<List<Map<String, dynamic>>> _program;
+  late Future<List<Map<String, dynamic>>> animalsCheck;
+  late List<Map<String, dynamic>> animalsList;
 
-  List<Map> animalsCheck = [
-    {"name": "Słoń", "isChecked": false},
-    {"name": "Zyrafa", "isChecked": true}
-  ];
+  String? selectedAnimal;
 
   @override
   void initState() {
     super.initState();
+    fetchAnimals();
+    animalsCheck = SQLHelper.getAnimalsList();
+  }
+
+  Future<void> fetchAnimals() async {
+    animalsList = await SQLHelper.getAnimals();
   }
 
   @override
   Widget build(BuildContext context) {
-    // final database = SQLHelper();
-    // final program = database.getProgram();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Plan wycieczki'),
       ),
-      body: ListView.builder(
-        itemCount: animalsCheck.length,
-        prototypeItem: ListTile(
-          title: Text(animalsCheck.first["name"]),
-        ),
-        itemBuilder: (context, index) {
-          return ListTile(
-              leading: Checkbox(
-                value: animalsCheck[index]["isChecked"],
-                onChanged: (bool? value) {
-                  setState(() {
-                    animalsCheck[index]["isChecked"] = value ?? false;
-                  });
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+          future: animalsCheck,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                prototypeItem: ListTile(
+                  title: Text(snapshot.data!.first["name"]),
+                ),
+                itemBuilder: (context, index) {
+                  return ListTile(
+                      leading: Checkbox(
+                        value: snapshot.data![index]["visited"] == 0
+                            ? false
+                            : true,
+                        onChanged: (bool? value) async {
+                          Feedback.forTap(context);
+                          await SQLHelper.updateAnimalProperty(
+                            snapshot.data![index]['id'],
+                            'visited',
+                            value != null && value ? 1 : 0,
+                          );
+                          setState(() {
+                            animalsCheck = SQLHelper.getAnimalsList();
+                          });
+                        },
+                      ),
+                      trailing: GestureDetector(
+                        onTap: () async {
+                          // Perform the delete action here
+
+                          await SQLHelper.updateAnimalProperty(
+                            snapshot.data![index]['id'],
+                            'onlist',
+                            0,
+                          );
+                          setState(() {
+                            animalsCheck = SQLHelper.getAnimalsList();
+                          });
+                        },
+                        child: const Icon(Icons.delete),
+                      ),
+                      title: Text(snapshot.data![index]["name"]));
                 },
-              ),
-              trailing: const Icon(Icons.delete),
-              title: Text(animalsCheck[index]["name"]));
-        },
-      ),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
+
+      ////////////////////////////////////////
       floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
         onPressed: () => showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: const Text('AlertDialog Title'),
+            title: const Text('Zwierzak'),
             content: Autocomplete<String>(
               optionsBuilder: (TextEditingValue textEditingValue) {
                 if (textEditingValue.text == '') {
                   return const Iterable<String>.empty();
                 }
-                return animalsCheck
+                return animalsList
                     .where((animal) => animal["name"]
                         .toString()
                         .toLowerCase()
@@ -70,18 +107,29 @@ class _TourProgramScreenState extends State<TourProgramScreen> {
               onSelected: (String selection) {
                 debugPrint('You just selected $selection');
                 setState(() {
-                  animalsCheck.add({"name": selection, "isChecked": false});
+                  selectedAnimal = selection;
                 });
               },
             ),
             actions: <Widget>[
               TextButton(
-                onPressed: () => Navigator.pop(context, 'Cancel'),
-                child: const Text('Cancel'),
+                onPressed: () => Navigator.pop(context, 'Anuluj'),
+                child: const Text('Anuluj'),
               ),
               TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
+                onPressed: () async => {
+                  Navigator.pop(context, 'Dodaj'),
+                  await SQLHelper.updateAnimalProperty(
+                    animalsList.firstWhere(
+                        (animal) => animal['name'] == selectedAnimal)['id'],
+                    'onlist',
+                    1,
+                  ),
+                  setState(() {
+                    animalsCheck = SQLHelper.getAnimalsList();
+                  }),
+                },
+                child: const Text('Dodaj'),
               ),
             ],
           ),
