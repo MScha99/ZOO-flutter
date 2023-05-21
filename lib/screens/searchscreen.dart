@@ -31,6 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   name: map['name'],
                   description: map['description'],
                   visited: map['visited'],
+                  onlist: map['onlist'],
                   photographed: map['photographed'],
                 ));
             return ListView.builder(

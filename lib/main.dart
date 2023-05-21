@@ -10,7 +10,9 @@ import 'package:zooapp/screens/searchscreen.dart';
 void main() async {
   runApp(const MyApp());
   WidgetsFlutterBinding.ensureInitialized();
-  print(await SQLHelper.getAnimals());
+  // final database = SQLHelper();
+  // final program = await database.getProgram();
+  // print(program);
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
       routerConfig: _router,
       debugShowCheckedModeBanner: false,
       title: 'ZOO Wrocław',
-      theme: ThemeData(colorSchemeSeed: Color(0xFFF5ECE4)
+      theme: ThemeData(colorSchemeSeed: Color(0xFFF5ECE4), useMaterial3: true
           // This is the theme of your application.
           ),
     );
