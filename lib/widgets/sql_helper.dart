@@ -30,7 +30,7 @@ class SQLHelper {
       await db.insert('animals', {
         'name': 'Zebra stepowa',
         'description':
-            'gatunek ssaka z rodziny koniowatych, najliczniejszy gatunek zebry. Często spotykany w ogrodach zoologicznych, również w Polsce. Jest uznawany za bliski zagrożenia wyginięciem.',
+            'Gatunek ssaka z rodziny koniowatych, najliczniejszy gatunek zebry. Często spotykany w ogrodach zoologicznych, również w Polsce. Jest uznawany za bliski zagrożenia wyginięciem.',
       });
       await db.insert('animals', {
         'name': 'Słoń afrykański',
