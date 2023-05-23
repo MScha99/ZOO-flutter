@@ -31,6 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   id: map['id'],
                   name: map['name'],
                   description: map['description'],
+                  achievement_des: map['achievements_des'],
                   visited: map['visited'],
                   onlist: map['onlist'],
                   photographed: map['photographed'],
