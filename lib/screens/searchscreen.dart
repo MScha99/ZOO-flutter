@@ -16,7 +16,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    animalsList = SQLHelper.getAnimalsList();
+    animalsList = SQLHelper.getAnimals();
   }
 
   @override
