@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:zooapp/screens/animalscreen.dart';
 import 'package:zooapp/widgets/sql_helper.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -45,6 +47,17 @@ class _SearchScreenState extends State<SearchScreen> {
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AnimalScreen(),
+                        settings: RouteSettings(
+                          arguments: animal,
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             );

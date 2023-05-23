@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zooapp/screens/animalscreen.dart';
 import 'package:zooapp/widgets/sql_helper.dart';
 import 'package:zooapp/screens/homescreen.dart';
 import 'package:zooapp/screens/testowa.dart';
@@ -115,7 +116,27 @@ final _router = GoRouter(
               return const NoTransitionPage(
                 child: SearchScreen(),
               );
-            }),
+            },
+            routes: <RouteBase>[
+              GoRoute(
+                path: 'animalscreen',
+                pageBuilder: (context, state) {
+                  return const NoTransitionPage(
+                    child: AnimalScreen(),
+                  );
+                },
+                routes: <RouteBase>[
+                  GoRoute(
+                    path: 'animalphoto',
+                    pageBuilder: (context, state) {
+                      return const NoTransitionPage(
+                        child: AnimalScreen(),
+                      );
+                    },
+                  ),
+                ],
+              )
+            ]),
       ],
     ),
   ],
