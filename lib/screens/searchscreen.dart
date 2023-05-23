@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-//import 'package:zooapp/screens/animalscreen.dart';
+import 'package:zooapp/screens/animalscreen.dart';
 import 'package:zooapp/widgets/sql_helper.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -10,18 +9,13 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  late Future<List<Map<String, dynamic>>> animalsList;
+  late Future<List<Map<String, dynamic>>> _animalsFuture;
 
   @override
   void initState() {
     super.initState();
-    // fetchAnimals();
-    animalsList = SQLHelper.getAnimalsList();
+    _animalsFuture = SQLHelper.getAnimals();
   }
-
-  // Future<void> fetchAnimals() async {
-  //   animalsList = await SQLHelper.getAnimals();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +58,22 @@ class _SearchScreenState extends State<SearchScreen> {
                     );
                   },
                 );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error loading data.'),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    );
+  }
+}
 /*
       body: Column(
         children: [
@@ -154,9 +164,15 @@ class _SearchScreenState extends State<SearchScreen> {
           //     },
           //   ),
           // ),
-          */
+          
         ],
       ),
     );
   }
-}
+  
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
+}*/
