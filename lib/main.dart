@@ -57,31 +57,32 @@ final _router = GoRouter(
       },
       routes: [
         GoRoute(
-            path: '/home',
-            parentNavigatorKey: _shellNavigatorKey,
-            pageBuilder: (context, state) {
-              return const NoTransitionPage(
-                child: HomeScreen(),
-              );
-            },
-            routes: <RouteBase>[
-              GoRoute(
-                path: 'testowa',
-                pageBuilder: (context, state) {
-                  return const NoTransitionPage(
-                    child: TestowaScreen(),
-                  );
-                },
-              ),
-              GoRoute(
-                path: 'animalgallery',
-                pageBuilder: (context, state) {
-                  return const NoTransitionPage(
-                    child: AnimalGallery(),
-                  );
-                },
-              )
-            ]),
+          path: '/home',
+          parentNavigatorKey: _shellNavigatorKey,
+          pageBuilder: (context, state) {
+            return const NoTransitionPage(
+              child: HomeScreen(),
+            );
+          },
+          routes: <RouteBase>[
+            GoRoute(
+              path: 'testowa',
+              pageBuilder: (context, state) {
+                return const NoTransitionPage(
+                  child: TestowaScreen(),
+                );
+              },
+            ),
+            GoRoute(
+              path: 'animalgallery',
+              pageBuilder: (context, state) {
+                return NoTransitionPage(
+                  child: AnimalGallery(),
+                );
+              },
+            )
+          ],
+        ),
         GoRoute(
           path: '/achievements',
           parentNavigatorKey: _shellNavigatorKey,
@@ -120,33 +121,35 @@ final _router = GoRouter(
               );
             }),
         GoRoute(
-            parentNavigatorKey: _shellNavigatorKey,
-            path: '/search',
-            pageBuilder: (context, state) {
-              return const NoTransitionPage(
-                child: SearchScreen(),
-              );
-            },
-            routes: <RouteBase>[
-              GoRoute(
-                path: 'animalscreen',
-                pageBuilder: (context, state) {
-                  return const NoTransitionPage(
-                    child: AnimalScreen(),
-                  );
-                },
-                routes: <RouteBase>[
-                  GoRoute(
-                    path: 'animalphoto',
-                    pageBuilder: (context, state) {
-                      return const NoTransitionPage(
-                        child: AnimalScreen(),
-                      );
-                    },
-                  ),
-                ],
-              )
-            ]),
+          parentNavigatorKey: _shellNavigatorKey,
+          path: '/animal',
+          builder: (BuildContext context, GoRouterState state) {
+            final name = state.queryParameters["name"];
+            return AnimalScreen(
+              name: name ?? 'koń',
+            );
+          },
+          routes: <RouteBase>[
+            GoRoute(
+              path: 'photo',
+              builder: (BuildContext context, GoRouterState state) {
+                final name = state.queryParameters["name"];
+                return AnimalScreen(
+                  name: name ?? 'koń',
+                );
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          parentNavigatorKey: _shellNavigatorKey,
+          path: '/search',
+          pageBuilder: (context, state) {
+            return NoTransitionPage(
+              child: SearchScreen(),
+            );
+          },
+        ),
 /*
             }),
         GoRoute(

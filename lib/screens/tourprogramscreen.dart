@@ -34,59 +34,70 @@ class _TourProgramScreenState extends State<TourProgramScreen> {
         title: const Text('Plan wycieczki'),
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
-          future: animalsCheck,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                itemCount: snapshot.data!.length,
-                prototypeItem: ListTile(
-                  title: Text(snapshot.data!.first["name"]),
-                ),
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Checkbox(
-                      value:
-                          snapshot.data![index]["visited"] == 0 ? false : true,
-                      onChanged: (bool? value) async {
-                        Feedback.forTap(context);
-                        await SQLHelper.updateAnimalProperty(
-                          snapshot.data![index]['id'],
-                          'visited',
-                          value != null && value ? 1 : 0,
-                        );
-                        setState(() {
-                          animalsCheck = SQLHelper.getAnimalsList();
-                        });
-                      },
-                    ),
-                    trailing: GestureDetector(
-                      onTap: () async {
-                        // Perform the delete action here
+        future: animalsCheck,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final animals = snapshot.data!
+                .map((map) => Animal(
+                      id: map['id'],
+                      name: map['name'],
+                      description: map['description'],
+                      visited: map['visited'],
+                      onlist: map['onlist'],
+                      photographed: map['photographed'],
+                    ))
+                .toList();
 
-                        await SQLHelper.updateAnimalProperty(
-                          snapshot.data![index]['id'],
-                          'onlist',
-                          0,
-                        );
-                        setState(() {
-                          animalsCheck = SQLHelper.getAnimalsList();
-                        });
-                      },
-                      child: const Icon(Icons.delete),
-                    ),
-                    title: Text(
-                      snapshot.data![index]["name"],
-                    ),
-                  );
-                },
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          }),
-
+            return ListView.builder(
+              itemCount: animals.length,
+              prototypeItem: ListTile(
+                title: Text(animals.first.name),
+              ),
+              itemBuilder: (context, index) {
+                final animal = animals[index];
+                return ListTile(
+                  leading: Checkbox(
+                    value: animal.visited == 0 ? false : true,
+                    onChanged: (bool? value) async {
+                      Feedback.forTap(context);
+                      await SQLHelper.updateAnimalProperty(
+                        animal.id,
+                        'visited',
+                        value != null && value ? 1 : 0,
+                      );
+                      setState(() {
+                        animalsCheck = SQLHelper.getAnimalsList();
+                      });
+                    },
+                  ),
+                  trailing: GestureDetector(
+                    onTap: () async {
+                      await SQLHelper.updateAnimalProperty(
+                        animal.id,
+                        'onlist',
+                        0,
+                      );
+                      setState(() {
+                        animalsCheck = SQLHelper.getAnimalsList();
+                      });
+                    },
+                    child: const Icon(Icons.delete),
+                  ),
+                  title: Text(animal.name),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error loading data.'),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
       ////////////////////////////////////////
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
