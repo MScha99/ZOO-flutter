@@ -13,7 +13,6 @@ class AnimalPhoto extends StatelessWidget {
       appBar: AppBar(
         title: Text(animal.name + ' - zdjęcie'),
       ),
-      // bottomNavigationBar: const BottomNavBar(),
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(16.0),

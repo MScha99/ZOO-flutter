@@ -26,6 +26,12 @@ class HomeScreen extends StatelessWidget {
               },
               child: const Text('strona testowa'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                context.push('/home/animalgallery');
+              },
+              child: const Text('Galeria'),
+            ),
           ],
         ),
       ),
