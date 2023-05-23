@@ -8,6 +8,7 @@ import 'package:zooapp/screens/testowa.dart';
 import 'package:zooapp/screens/mapscreen.dart';
 import 'package:zooapp/screens/tourprogramscreen.dart';
 import 'package:zooapp/screens/searchscreen.dart';
+import 'package:zooapp/screens/animalscreen.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -146,6 +147,17 @@ final _router = GoRouter(
                 ],
               )
             ]),
+/*
+            }),
+        GoRoute(
+            parentNavigatorKey: _shellNavigatorKey,
+            path: '/animal',
+            pageBuilder: (context, state) {
+              return NoTransitionPage(
+                child: AnimalScreen(),
+              );
+            }),
+*/
       ],
     ),
   ],

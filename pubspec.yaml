@@ -72,6 +72,7 @@ flutter:
     - assets/images/animals/cat copy 6.jpg
     - assets/images/animals/cat copy 7.jpg
     - assets/images/animals/cat copy 8.jpg
+    - lib/assets/images/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
