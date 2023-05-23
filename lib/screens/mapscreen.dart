@@ -65,6 +65,9 @@ class _MapScreenState extends State<MapScreen> {
   }
 
 
+void handleTap(Offset position) {
+    
+  }
 
   void handleMarkerTap(MapMarker marker) {
     // Handle taps on a place marking
