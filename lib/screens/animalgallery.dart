@@ -9,7 +9,7 @@ class AnimalGallery extends StatefulWidget {
 }
 
 class _AnimalGalleryState extends State<AnimalGallery> {
-  late List<String> imagePaths;
+  List<String>? imagePaths; // Nullable list
 
   @override
   void initState() {
@@ -39,18 +39,23 @@ class _AnimalGalleryState extends State<AnimalGallery> {
       appBar: AppBar(
         title: Text('Galeria'),
       ),
-      body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: 140 / 140),
-          itemCount: imagePaths.length,
-          itemBuilder: (context, index) {
-            final imagePath = imagePaths[index];
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: () {
-                  print('image tapped');
-                  /*Navigator.push(
+      body: imagePaths != null &&
+              imagePaths!
+                  .isNotEmpty // Check if imagePaths is not null and not empty
+          ? GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 140 / 140,
+              ),
+              itemCount: imagePaths!.length,
+              itemBuilder: (context, index) {
+                final imagePath = imagePaths![index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      print('image tapped');
+                      /*Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => AnimalPhoto(),
@@ -59,17 +64,22 @@ class _AnimalGalleryState extends State<AnimalGallery> {
                           ),
                         ),
                       );*/
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: Image.asset(
-                    imagePath,
-                    fit: BoxFit.cover,
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: Image.asset(
+                        imagePath,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          }),
+                );
+              },
+            )
+          : Center(
+              child:
+                  CircularProgressIndicator(), // Placeholder for loading indicator
+            ),
     );
   }
 }

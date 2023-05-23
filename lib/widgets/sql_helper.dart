@@ -79,6 +79,13 @@ class SQLHelper {
     return db.query('animals', orderBy: "id");
   }
 
+  static Future<List<Map<String, dynamic>>> getAnimal(String name) async {
+    // await deleteDatabase();
+    final db = await SQLHelper.db();
+    return db.query('animals',
+        where: "name = ?", whereArgs: [name], orderBy: "id");
+  }
+
   static Future<List<Map<String, dynamic>>> getAnimalsList() async {
     // await deleteDatabase();
     final db = await SQLHelper.db();
