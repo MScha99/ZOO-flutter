@@ -44,38 +44,40 @@ class _TourProgramScreenState extends State<TourProgramScreen> {
                 ),
                 itemBuilder: (context, index) {
                   return ListTile(
-                      leading: Checkbox(
-                        value: snapshot.data![index]["visited"] == 0
-                            ? false
-                            : true,
-                        onChanged: (bool? value) async {
-                          Feedback.forTap(context);
-                          await SQLHelper.updateAnimalProperty(
-                            snapshot.data![index]['id'],
-                            'visited',
-                            value != null && value ? 1 : 0,
-                          );
-                          setState(() {
-                            animalsCheck = SQLHelper.getAnimalsList();
-                          });
-                        },
-                      ),
-                      trailing: GestureDetector(
-                        onTap: () async {
-                          // Perform the delete action here
+                    leading: Checkbox(
+                      value:
+                          snapshot.data![index]["visited"] == 0 ? false : true,
+                      onChanged: (bool? value) async {
+                        Feedback.forTap(context);
+                        await SQLHelper.updateAnimalProperty(
+                          snapshot.data![index]['id'],
+                          'visited',
+                          value != null && value ? 1 : 0,
+                        );
+                        setState(() {
+                          animalsCheck = SQLHelper.getAnimalsList();
+                        });
+                      },
+                    ),
+                    trailing: GestureDetector(
+                      onTap: () async {
+                        // Perform the delete action here
 
-                          await SQLHelper.updateAnimalProperty(
-                            snapshot.data![index]['id'],
-                            'onlist',
-                            0,
-                          );
-                          setState(() {
-                            animalsCheck = SQLHelper.getAnimalsList();
-                          });
-                        },
-                        child: const Icon(Icons.delete),
-                      ),
-                      title: Text(snapshot.data![index]["name"]));
+                        await SQLHelper.updateAnimalProperty(
+                          snapshot.data![index]['id'],
+                          'onlist',
+                          0,
+                        );
+                        setState(() {
+                          animalsCheck = SQLHelper.getAnimalsList();
+                        });
+                      },
+                      child: const Icon(Icons.delete),
+                    ),
+                    title: Text(
+                      snapshot.data![index]["name"],
+                    ),
+                  );
                 },
               );
             } else {
