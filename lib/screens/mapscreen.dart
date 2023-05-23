@@ -23,9 +23,9 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   final markers = [
-    MapMarker(Offset(200, 180), 'Wejście/Wyjście'),
-    MapMarker(Offset(370, 15), 'Żaba zielona'),
-    MapMarker(Offset(20, 40), 'Krokodyl'),
+    MapMarker(Offset(2000, 1900), 'Wejście/Wyjście'),
+    MapMarker(Offset(1370, 115), 'Żaba zielona'),
+    MapMarker(Offset(1900, 1040), 'Krokodyl'),
   ];
 
   // This widget is the root of your application.
@@ -36,24 +36,31 @@ class _MapScreenState extends State<MapScreen> {
         title: const Text('Mapa'),
       ),
       // bottomNavigationBar: const BottomNavBar(),
-      body: SingleChildScrollView(
-        child: GestureDetector(
-          onTapUp: (details) => handleTap(details.localPosition),
-          child: Stack(
-            children: [
-              Image(image: image),
-              ...markers.map((marker) => Positioned(
+      body: Stack(
+        children: [
+          InteractiveViewer(
+            minScale: 0.1,
+            maxScale: 3,
+            constrained: false,
+            boundaryMargin: EdgeInsets.all(100),
+            child: Stack(
+              children: [
+                Image.asset(
+                  'assets/images/map.jpg',
+                ),
+                ...markers.map((marker) => Positioned(
                     left: marker.position.dx - 12,
                     top: marker.position.dy - 24,
                     child: IconButton(
-                      icon: Icon(Icons.place),
+                      icon: Icon(Icons.place, color: Colors.red , size: 100.0,),
                       onPressed: () => handleMarkerTap(marker),
-                    ),
-                  )),
-            ],
-          ),
-        ),
-      )
+                    )
+                ))
+              ],
+            )
+          )
+        ],
+      ),
     );
   }
 
