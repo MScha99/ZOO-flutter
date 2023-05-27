@@ -5,6 +5,7 @@ import 'package:zooapp/screens/animalscreen.dart';
 import 'package:zooapp/widgets/sql_helper.dart';
 import 'package:zooapp/screens/homescreen.dart';
 import 'package:zooapp/screens/testowa.dart';
+import 'package:zooapp/screens/achievementscreen.dart';
 import 'package:zooapp/screens/mapscreen.dart';
 import 'package:zooapp/screens/tourprogramscreen.dart';
 import 'package:zooapp/screens/searchscreen.dart';
@@ -88,9 +89,7 @@ final _router = GoRouter(
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (context, state) {
             return const NoTransitionPage(
-              child: Scaffold(
-                body: Center(child: Text("tu bedzie strona z osiagnieciami")),
-              ),
+              child: AchievementScreen()
             );
           },
         ),
