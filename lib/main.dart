@@ -7,6 +7,7 @@ import 'package:zooapp/screens/homescreen.dart';
 import 'package:zooapp/screens/testowa.dart';
 import 'package:zooapp/screens/achievementscreen.dart';
 import 'package:zooapp/screens/mapscreen.dart';
+import 'package:zooapp/screens/achievementscreen.dart';
 import 'package:zooapp/screens/tourprogramscreen.dart';
 import 'package:zooapp/screens/searchscreen.dart';
 import 'package:zooapp/screens/animalscreen.dart';
@@ -88,7 +89,9 @@ final _router = GoRouter(
           path: '/achievements',
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (context, state) {
+
             return const NoTransitionPage(child: AchievementScreen());
+
           },
         ),
         GoRoute(
