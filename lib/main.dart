@@ -88,9 +88,7 @@ final _router = GoRouter(
           path: '/achievements',
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (context, state) {
-            return const NoTransitionPage(
-              child: AchievementScreen()
-            );
+            return const NoTransitionPage(child: AchievementScreen());
           },
         ),
         GoRoute(

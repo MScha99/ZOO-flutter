@@ -9,6 +9,7 @@ class Animal {
   final int visited;
   final int onlist;
   final int photographed;
+  //final String achievementDes;
 
   const Animal({
     required this.id,
@@ -17,6 +18,7 @@ class Animal {
     required this.onlist,
     required this.visited,
     required this.photographed,
+    //required this.achievementDes,
   });
 }
 
@@ -32,6 +34,7 @@ class SQLHelper {
         'description':
             'Gatunek ssaka z rodziny koniowatych, najliczniejszy gatunek zebry. Często spotykany w ogrodach zoologicznych, również w Polsce. Jest uznawany za bliski zagrożenia wyginięciem.',
         'achievement_des': 'Zrobiono zdjęcie z zebrą stepową',
+        'photographed': 1,
       });
       await db.insert('animals', {
         'name': 'Słoń afrykański',
@@ -45,6 +48,7 @@ class SQLHelper {
             'Żyrafa jest najwyższym lądowym zwierzęciem na Ziemi. Ma długie szyje i nogi, i występuje na sawannach i w lasach Afryki.',
         'achievement_des': 'Zrobiono zdjęcie z żyrafą',
         'onlist': 1,
+        'photographed': 1,
       });
       await db.insert('animals', {
         'name': 'Lew',

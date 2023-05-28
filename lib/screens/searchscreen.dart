@@ -65,8 +65,10 @@ class _SearchScreenState extends State<SearchScreen> {
                               visited: map['visited'],
                               onlist: map['onlist'],
                               photographed: map['photographed'],
+                              //achievementDes: map['achievement_des'],
                             ))
                         .toList();
+                    print(animals.length);
 
                     return ListView.separated(
                       separatorBuilder: (context, index) => const Divider(),
@@ -88,17 +90,6 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           title: Text(animal.name),
                           subtitle: Text(animal.description),
-                          // onTap: () {
-                          //   Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder: (context) => AnimalScreen(),
-                          //       settings: RouteSettings(
-                          //         arguments: animal,
-                          //       ),
-                          //     ),
-                          //   );
-                          // },
                           onTap: () {
                             context.push("/animal?name=${animal.name}");
                           },
