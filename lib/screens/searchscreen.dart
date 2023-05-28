@@ -25,7 +25,6 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         title: const Text('Lista zwierzaków'),
       ),
-
       body: Column(
         children: [
           Padding(
@@ -104,24 +103,14 @@ class _SearchScreenState extends State<SearchScreen> {
                   } else {
                     return const Center(
                       child: CircularProgressIndicator(),
-
                     );
-                  },
-                );
-              },
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error loading data.'),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
-
