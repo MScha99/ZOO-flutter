@@ -45,6 +45,7 @@ class _TourProgramScreenState extends State<TourProgramScreen> {
                       visited: map['visited'],
                       onlist: map['onlist'],
                       photographed: map['photographed'],
+                      //achievementDes: map['achievement_des'],
                     ))
                 .toList();
 
