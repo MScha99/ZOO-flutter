@@ -40,9 +40,11 @@ class _MapScreenState extends State<MapScreen> {
         children: [
           InteractiveViewer(
             minScale: 0.1,
-            maxScale: 3,
+
+            maxScale: 0.8,
             constrained: false,
-            boundaryMargin: EdgeInsets.all(100),
+            boundaryMargin: EdgeInsets.all(75),
+
             child: Stack(
               children: [
                 Image.asset(
@@ -62,11 +64,6 @@ class _MapScreenState extends State<MapScreen> {
         ],
       ),
     );
-  }
-
-
-void handleTap(Offset position) {
-    
   }
 
   void handleMarkerTap(MapMarker marker) {
