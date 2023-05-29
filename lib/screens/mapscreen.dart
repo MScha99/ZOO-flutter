@@ -24,8 +24,12 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   final markers = [
     MapMarker(Offset(2000, 1900), 'Wejście/Wyjście'),
-    MapMarker(Offset(1370, 115), 'Żaba zielona'),
-    MapMarker(Offset(1900, 1040), 'Krokodyl'),
+    MapMarker(Offset(1370, 115), 'Zebra stepowa'),
+    MapMarker(Offset(3000, 1040), 'Słoń afrykański'),
+    MapMarker(Offset(2200, 1240), 'Żyrafa'),
+    MapMarker(Offset(1200, 840), 'Lew'),
+    MapMarker(Offset(3500, 1740), 'Niedźwiedź polarny'),
+    MapMarker(Offset(800, 1750), 'Pingwin cesarski'),
   ];
 
   // This widget is the root of your application.
@@ -68,12 +72,32 @@ class _MapScreenState extends State<MapScreen> {
 
   void handleMarkerTap(MapMarker marker) {
     // Handle taps on a place marking
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(marker.name),
-        content: Text('Tutaj znajduje się ${marker.name}.'),
-      ),
-    );
+    if (marker.name != 'Wejście/Wyjście'){
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(marker.name),
+          content: Text('Tutaj znajduje się ${marker.name}.'),
+          
+            actions: [
+              ElevatedButton(
+                child: Icon(Icons.arrow_forward_ios, color: Color.fromARGB(255, 131, 82, 64),),
+                onPressed: () {
+                  context.push("/animal?name=${marker.name}");
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+        ),
+      );
+    }else{
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(marker.name),
+          content: Text('Tutaj znajduje się ${marker.name}.'),
+        ),
+      );
+    }
   }
 }
