@@ -78,6 +78,22 @@ final _router = GoRouter(
                   ),
                 );
               },
+              routes: <RouteBase>[
+                GoRoute(
+                  parentNavigatorKey: _shellNavigatorKey,
+                  path: 'photo',
+                  pageBuilder: (context, state) {
+                    final name = state.queryParameters["name"];
+                    final photoFlag = state.queryParameters["photoFlag"];
+                    return NoTransitionPage(
+                      child: AnimalPhoto(
+                        name: name ?? 'error',
+                        photoFlag: photoFlag ?? '-1',
+                      ),
+                    );
+                  },
+                )
+              ],
             )
           ],
         ),
