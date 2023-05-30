@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class AnimalGallery extends StatefulWidget {
-  const AnimalGallery({super.key});
+  const AnimalGallery({super.key, required this.title});
+  final String title;
+
   @override
   _AnimalGalleryState createState() => _AnimalGalleryState();
 }
@@ -22,9 +24,19 @@ class _AnimalGalleryState extends State<AnimalGallery> {
       final manifestContent = await rootBundle.loadString('AssetManifest.json');
       final manifestMap =
           Map<String, dynamic>.from(jsonDecode(manifestContent));
-      final imagePathList = manifestMap.keys
-          .where((String key) => key.contains('assets/images/animals'))
-          .toList();
+      final List<String> imagePathList;
+      if (widget.title == 'Twoje zdjęcia') {
+        imagePathList = manifestMap.keys
+            .where((String key) =>
+                key.contains('assets/images/animals/user_photo'))
+            .toList();
+      } else {
+        imagePathList = manifestMap.keys
+            .where(
+                (String key) => key.contains('assets/images/animals/app_photo'))
+            .toList();
+      }
+
       setState(() {
         imagePaths = imagePathList;
       });
@@ -37,7 +49,7 @@ class _AnimalGalleryState extends State<AnimalGallery> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Galeria'),
+        title: Text(widget.title),
       ),
       body: imagePaths != null &&
               imagePaths!

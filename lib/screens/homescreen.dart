@@ -252,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   onTap: () {
-                    context.push('/home/animalgallery');
+                    context.push('/home/animalgallery?title=Galeria');
                   },
                 ),
                 GestureDetector(
@@ -293,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   onTap: () {
-                    context.push('/home/animalgallery');
+                    context.push('/home/animalgallery?title=Twoje zdjęcia');
                   },
                 ),
               ],

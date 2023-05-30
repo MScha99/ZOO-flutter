@@ -69,18 +69,13 @@ final _router = GoRouter(
           },
           routes: <RouteBase>[
             GoRoute(
-              path: 'testowa',
-              pageBuilder: (context, state) {
-                return const NoTransitionPage(
-                  child: TestowaScreen(),
-                );
-              },
-            ),
-            GoRoute(
               path: 'animalgallery',
               pageBuilder: (context, state) {
+                final title = state.queryParameters["title"];
                 return NoTransitionPage(
-                  child: AnimalGallery(),
+                  child: AnimalGallery(
+                    title: title ?? 'error',
+                  ),
                 );
               },
             )
@@ -145,9 +140,11 @@ final _router = GoRouter(
                   path: 'photo',
                   pageBuilder: (context, state) {
                     final name = state.queryParameters["name"];
+                    final photoFlag = state.queryParameters["photoFlag"];
                     return NoTransitionPage(
                       child: AnimalPhoto(
                         name: name ?? 'error',
+                        photoFlag: photoFlag ?? '-1',
                       ),
                     );
                   },
