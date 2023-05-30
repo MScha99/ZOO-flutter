@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zooapp/screens/animalgallery.dart';
+import 'package:zooapp/screens/animalphoto.dart';
 import 'package:zooapp/screens/animalscreen.dart';
 import 'package:zooapp/widgets/sql_helper.dart';
 import 'package:zooapp/screens/homescreen.dart';
@@ -89,9 +90,7 @@ final _router = GoRouter(
           path: '/achievements',
           parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (context, state) {
-
             return const NoTransitionPage(child: AchievementScreen());
-
           },
         ),
         GoRoute(
@@ -122,45 +121,41 @@ final _router = GoRouter(
             }),
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
-          path: '/animal',
-          builder: (BuildContext context, GoRouterState state) {
-            final name = state.queryParameters["name"];
-            return AnimalScreen(
-              name: name ?? 'koń',
-            );
-          },
-          routes: <RouteBase>[
-            GoRoute(
-              path: 'photo',
-              builder: (BuildContext context, GoRouterState state) {
-                final name = state.queryParameters["name"];
-                return AnimalScreen(
-                  name: name ?? 'koń',
-                );
-              },
-            ),
-          ],
-        ),
-        GoRoute(
-          parentNavigatorKey: _shellNavigatorKey,
           path: '/search',
           pageBuilder: (context, state) {
             return NoTransitionPage(
               child: SearchScreen(),
             );
           },
+          routes: <RouteBase>[
+            GoRoute(
+              parentNavigatorKey: _shellNavigatorKey,
+              path: 'animal',
+              pageBuilder: (context, state) {
+                final name = state.queryParameters["name"];
+                return NoTransitionPage(
+                  child: AnimalScreen(
+                    name: name ?? 'error',
+                  ),
+                );
+              },
+              routes: <RouteBase>[
+                GoRoute(
+                  parentNavigatorKey: _shellNavigatorKey,
+                  path: 'photo',
+                  pageBuilder: (context, state) {
+                    final name = state.queryParameters["name"];
+                    return NoTransitionPage(
+                      child: AnimalPhoto(
+                        name: name ?? 'error',
+                      ),
+                    );
+                  },
+                )
+              ],
+            )
+          ],
         ),
-/*
-            }),
-        GoRoute(
-            parentNavigatorKey: _shellNavigatorKey,
-            path: '/animal',
-            pageBuilder: (context, state) {
-              return NoTransitionPage(
-                child: AnimalScreen(),
-              );
-            }),
-*/
       ],
     ),
   ],
