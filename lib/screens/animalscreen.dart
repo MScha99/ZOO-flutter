@@ -1,5 +1,7 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zooapp/screens/camerapage.dart';
 import 'package:zooapp/widgets/sql_helper.dart';
 
 TextStyle greyboxStyle = const TextStyle(
@@ -26,8 +28,18 @@ Widget isPhotographed(var photographed, BuildContext context,
     );
   }
   return GestureDetector(
-    onTap: () {
-      print("Greybox tapped");
+    onTap: () async {
+      await availableCameras().then(
+        (value) => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => CameraPage(
+              camera: value.first,
+              animalName: widget.name.toLowerCase(),
+            ),
+          ),
+        ),
+      );
     },
     child: ClipRRect(
       borderRadius: BorderRadius.circular(15.0),
