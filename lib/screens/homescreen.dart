@@ -99,6 +99,11 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  TextStyle smallHeadline = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  );
+
   void showFullActivityList() {
     showDialog(
       context: context,
@@ -175,17 +180,20 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 25, bottom: 15),
+              padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 16.0),
               child: Container(
-                child: Text("Dzisiejszy harmonogram karmień zwierzaków",
-                    style: TextStyle(fontSize: 18)),
+                child: Text(
+                  "Dzisiejszy harmonogram karmień zwierzaków",
+                  style: smallHeadline,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.only(left: 25.0, right: 25.0, bottom: 25.0),
+              padding: const EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 16.0),
               child: Material(
                 elevation: 1,
                 borderRadius: BorderRadius.circular(10),
@@ -196,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(10),
                       // color: Colors.grey[200],
                     ),
-                    height: 200,
+                    height: MediaQuery.of(context).size.height / 3,
                     child: Scrollbar(
                       thumbVisibility: true,
                       child: ListView.builder(
@@ -214,88 +222,71 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 25.0, top: 15, right: 10),
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Material(
-                            elevation: 5,
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                minWidth: 170,
-                                maxWidth: 170,
-                                minHeight: 170,
-                                maxHeight: 170,
-                              ),
-                              child: Image.asset(
-                                "lib/assets/images/catSquare.png",
-                                fit: BoxFit.cover,
-                              ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: GestureDetector(
+                          onTap: () {
+                            context.push('/home/animalgallery?title=Galeria');
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15.0),
+                            child: Image.asset(
+                              "assets/images/Galeria.jpg",
+                              fit: BoxFit.cover,
+                              width: 160.0,
+                              height: 160.0,
                             ),
                           ),
                         ),
-                        SizedBox(
-                            height:
-                                10), // Add some spacing between image and text
-                        Text(
-                          'Galeria', // Add your desired text here
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        'Galeria',
+                        style: smallHeadline,
+                      ),
+                    ],
                   ),
-                  onTap: () {
-                    context.push('/home/animalgallery?title=Galeria');
-                  },
                 ),
-                GestureDetector(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(right: 25.0, top: 15, left: 10),
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(10),
-                            elevation: 5,
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                minWidth: 170,
-                                maxWidth: 170,
-                                minHeight: 170,
-                                maxHeight: 170,
-                              ),
-                              child: Image.asset(
-                                "lib/assets/images/catSquare.png",
-                                fit: BoxFit.fitWidth,
-                              ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 16.0),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: GestureDetector(
+                          onTap: () {
+                            context.push(
+                                '/home/animalgallery?title=Twoje zdjęcia');
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15.0),
+                            child: Image.asset(
+                              "assets/images/Twoje zdjęcia.jpg",
+                              fit: BoxFit.cover,
+                              width: 160.0,
+                              height: 160.0,
                             ),
                           ),
                         ),
-                        SizedBox(
-                            height:
-                                10), // Add some spacing between image and text
-                        Text(
-                          'Twoje zdjęcia', // Add your desired text here
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        'Twoje zdjęcia',
+                        style: smallHeadline,
+                      ),
+                    ],
                   ),
-                  onTap: () {
-                    context.push('/home/animalgallery?title=Twoje zdjęcia');
-                  },
-                ),
+                )
               ],
             )
           ],
