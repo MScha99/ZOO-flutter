@@ -88,7 +88,7 @@ class _AchievementScreenState extends State<AchievementScreen> {
                       return ListTile(
                         title: Text(animal.name),
                         subtitle: Text(
-                            "Placeholder achievement description"), //animal.achievement_des
+                            "Zrób zdjęcie ze zwierzakiem"), //animal.achievement_des
                         trailing: Icon(
                             snapshot.data![index]["photographed"] == 1
                                 ? Icons.check_circle
