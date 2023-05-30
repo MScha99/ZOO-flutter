@@ -116,11 +116,11 @@ class DisplayPictureScreen extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text(imagePath /*'Zapisanie zdjęcia'*/),
+              title: Text('Zapisanie zdjęcia'),
               content: Text('Czy chcesz zapisać zrobione zdjęcie?'),
               actions: [
                 TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
+                  onPressed: () => Navigator.of(context).pop(true),
                   child: Text('Nie'),
                 ),
                 TextButton(

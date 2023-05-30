@@ -9,7 +9,6 @@ import 'package:zooapp/screens/achievementscreen.dart';
 import 'package:zooapp/screens/mapscreen.dart';
 import 'package:zooapp/screens/tourprogramscreen.dart';
 import 'package:zooapp/screens/searchscreen.dart';
-import 'package:zooapp/screens/camerapage.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -163,17 +162,6 @@ final _router = GoRouter(
                     );
                   },
                 ),
-                // GoRoute(
-                //   parentNavigatorKey: _shellNavigatorKey,
-                //   path: 'camera',
-                //   pageBuilder: (context, state) {
-                //     return NoTransitionPage(
-                //       child: CameraPage(
-                //         camera: null,
-                //       ),
-                //     );
-                //   },
-                // ),
               ],
             )
           ],
