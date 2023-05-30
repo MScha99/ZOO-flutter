@@ -12,7 +12,7 @@ Widget isPhotographed(var photographed, BuildContext context,
   if (photographed == 1) {
     return GestureDetector(
       onTap: () {
-        context.go("/search/animal/photo?name=${snapshot.data![0]['name']}");
+        context.go("/search/animal/photo?name=${widget.name}&photoFlag=${"0"}");
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15.0),
@@ -124,12 +124,13 @@ class _AnimalScreenState extends State<AnimalScreen> {
                           itemCount: 4,
                           itemBuilder: (context, index) {
                             final imagePath =
-                                "assets/images/animals/${"${widget.name.toLowerCase()} ${index + 1}"}.jpg";
+                                "assets/images/animals/app_photo/${"${widget.name.toLowerCase()} ${index + 1}"}.jpg";
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
                                 onTap: () {
-                                  print("$imagePath");
+                                  context.go(
+                                      "/search/animal/photo?name=${widget.name}&photoFlag=${index + 1}");
                                 },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15.0),
