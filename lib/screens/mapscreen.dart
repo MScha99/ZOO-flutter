@@ -83,7 +83,7 @@ class _MapScreenState extends State<MapScreen> {
               ElevatedButton(
                 child: Icon(Icons.arrow_forward_ios, color: Color.fromARGB(255, 131, 82, 64),),
                 onPressed: () {
-                  context.push("/animal?name=${marker.name}");
+                  context.push("/search/animal?name=${marker.name}");
                   Navigator.of(context).pop();
                 },
               ),
