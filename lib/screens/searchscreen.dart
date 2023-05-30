@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zooapp/widgets/sql_helper.dart';
-import 'package:zooapp/screens/animalscreen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -68,36 +67,31 @@ class _SearchScreenState extends State<SearchScreen> {
                               //achievementDes: map['achievement_des'],
                             ))
                         .toList();
-                    print(animals.length);
-
                     return ListView.separated(
                       separatorBuilder: (context, index) => const Divider(),
                       itemCount: animals.length,
                       itemBuilder: (context, index) {
                         final animal = animals[index];
                         return ListTile(
-                          leading: ConstrainedBox(
-                            constraints: const BoxConstraints(
-                              minWidth: 60,
-                              maxWidth: 60,
-                              minHeight: 60,
-                              maxHeight: 60,
-                            ),
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
                             child: Image.asset(
-                              "lib/assets/images/catSquare.png",
+                              "assets/images/animals/${"${animal.name.toLowerCase()} ${1}"}.jpg",
                               fit: BoxFit.cover,
+                              width: 100.0,
+                              height: 80.0,
                             ),
                           ),
                           title: Text(animal.name),
-                          subtitle: Text(animal.description),
+                          //subtitle: Text(animal.description),
                           onTap: () {
-                            context.push("/animal?name=${animal.name}");
+                            context.push("/search/animal?name=${animal.name}");
                           },
                         );
                       },
                     );
                   } else if (snapshot.hasError) {
-                    return Center(
+                    return const Center(
                       child: Text('Error loading data.'),
                     );
                   } else {

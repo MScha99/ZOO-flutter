@@ -54,16 +54,7 @@ class _AnimalGalleryState extends State<AnimalGallery> {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      print('image tapped');
-                      /*Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AnimalPhoto(),
-                          settings: RouteSettings(
-                            arguments: animal,
-                          ),
-                        ),
-                      );*/
+                      print("${imagePath}");
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15.0),

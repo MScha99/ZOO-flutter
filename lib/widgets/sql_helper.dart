@@ -34,13 +34,13 @@ class SQLHelper {
         'description':
             'Gatunek ssaka z rodziny koniowatych, najliczniejszy gatunek zebry. Często spotykany w ogrodach zoologicznych, również w Polsce. Jest uznawany za bliski zagrożenia wyginięciem.',
         'achievement_des': 'Zrobiono zdjęcie z zebrą stepową',
-        'photographed': 1,
       });
       await db.insert('animals', {
         'name': 'Słoń afrykański',
         'description':
             'Słoń afrykański to największe lądowe zwierzę na Ziemi. Spotykane są na sawannach, w lasach i na pustyniach w Afryce.',
         'achievement_des': 'Zrobiono zdjęcie ze słoniem afrykańskim',
+        'photographed': 1,
       });
       await db.insert('animals', {
         'name': 'Żyrafa',
@@ -48,7 +48,6 @@ class SQLHelper {
             'Żyrafa jest najwyższym lądowym zwierzęciem na Ziemi. Ma długie szyje i nogi, i występuje na sawannach i w lasach Afryki.',
         'achievement_des': 'Zrobiono zdjęcie z żyrafą',
         'onlist': 1,
-        'photographed': 1,
       });
       await db.insert('animals', {
         'name': 'Lew',

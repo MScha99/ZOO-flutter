@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zooapp/widgets/sql_helper.dart';
 
 class AnimalPhoto extends StatelessWidget {
-  AnimalPhoto({Key? key, required this.name}) : super(key: key);
+  const AnimalPhoto({Key? key, required this.name}) : super(key: key);
   final String name;
 
   // This widget is the root of your application.
@@ -14,11 +13,11 @@ class AnimalPhoto extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
             child: Image.asset(
-              'assets/images/animals/cat.jpg',
+              "assets/images/animals/user_photo/${name.toLowerCase()}.jpg",
             ),
           ),
         ),
