@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 String generatePath(String animalName, String photoFlag) {
-  print(photoFlag);
   if (photoFlag == '0') {
     return "assets/images/animals/user_photo/${animalName.toLowerCase()}.jpg";
   }
