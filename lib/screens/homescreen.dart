@@ -170,7 +170,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ekran główny'),
+        title: const Text('ZOO Wrocław'),
+        elevation: 0,
       ),
       body: Center(
         child: Column(
@@ -178,30 +179,35 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 25, bottom: 15),
               child: Container(
-                child: Text("Dzisiejszy harmonogram karmień zwierzaków"),
+                child: Text("Dzisiejszy harmonogram karmień zwierzaków",
+                    style: TextStyle(fontSize: 18)),
               ),
             ),
             Padding(
               padding:
                   const EdgeInsets.only(left: 25.0, right: 25.0, bottom: 25.0),
-              child: InkWell(
-                onTap: showFullActivityList,
-                child: Container(
-                  height: 150, // Wysokość "okienka"
-                  // decoration: BoxDecoration(
-                  //   color: Color.fromARGB(255, 255, 255, 255),
-                  //   borderRadius: BorderRadius.circular(10.0),
-                  // ),
-                  child: Scrollbar(
-                    thumbVisibility: true,
-                    child: ListView.builder(
-                      itemCount: filteredActivities.length,
-                      itemBuilder: (context, index) {
-                        final activity = filteredActivities[index];
-                        return ListTile(
-                          title: Text(activity.activityName),
-                        );
-                      },
+              child: Material(
+                elevation: 1,
+                borderRadius: BorderRadius.circular(10),
+                child: InkWell(
+                  onTap: showFullActivityList,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      // color: Colors.grey[200],
+                    ),
+                    height: 200,
+                    child: Scrollbar(
+                      thumbVisibility: true,
+                      child: ListView.builder(
+                        itemCount: filteredActivities.length,
+                        itemBuilder: (context, index) {
+                          final activity = filteredActivities[index];
+                          return ListTile(
+                            title: Text(activity.activityName),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -211,18 +217,38 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 GestureDetector(
                   child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        minWidth: 150,
-                        maxWidth: 150,
-                        minHeight: 150,
-                        maxHeight: 150,
-                      ),
-                      child: Image.asset(
-                        "lib/assets/images/catSquare.png",
-                        fit: BoxFit.cover,
-                      ),
+                    padding:
+                        const EdgeInsets.only(left: 25.0, top: 15, right: 10),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Material(
+                            elevation: 5,
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                minWidth: 170,
+                                maxWidth: 170,
+                                minHeight: 170,
+                                maxHeight: 170,
+                              ),
+                              child: Image.asset(
+                                "lib/assets/images/catSquare.png",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height:
+                                10), // Add some spacing between image and text
+                        Text(
+                          'Galeria', // Add your desired text here
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   onTap: () {
@@ -231,18 +257,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 GestureDetector(
                   child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        minWidth: 150,
-                        maxWidth: 150,
-                        minHeight: 150,
-                        maxHeight: 150,
-                      ),
-                      child: Image.asset(
-                        "lib/assets/images/catSquare.png",
-                        fit: BoxFit.cover,
-                      ),
+                    padding:
+                        const EdgeInsets.only(right: 25.0, top: 15, left: 10),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Material(
+                            borderRadius: BorderRadius.circular(10),
+                            elevation: 5,
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                minWidth: 170,
+                                maxWidth: 170,
+                                minHeight: 170,
+                                maxHeight: 170,
+                              ),
+                              child: Image.asset(
+                                "lib/assets/images/catSquare.png",
+                                fit: BoxFit.fitWidth,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height:
+                                10), // Add some spacing between image and text
+                        Text(
+                          'Twoje zdjęcia', // Add your desired text here
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   onTap: () {
@@ -257,38 +304,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-// class HomeScreen extends StatelessWidget {
-//   const HomeScreen({super.key});
-
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Ekran główny'),
-//       ),
-//       // bottomNavigationBar: const BottomNavBar(),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             const Text('test'),
-//             ElevatedButton(
-//               onPressed: () {
-//                 context.push('/home/testowa');
-//               },
-//               child: const Text('strona testowa'),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {
-//                 context.push('/home/animalgallery');
-//               },
-//               child: const Text('Galeria'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

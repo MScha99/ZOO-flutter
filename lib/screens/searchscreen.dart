@@ -12,11 +12,17 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   late Future<List<Map<String, dynamic>>> animalsList;
+  late List<Map<String, dynamic>> animalsSearch;
 
   @override
   void initState() {
     super.initState();
     animalsList = SQLHelper.getAnimals();
+    searchFetch();
+  }
+
+  Future<void> searchFetch() async {
+    animalsSearch = await SQLHelper.getAnimals();
   }
 
   @override
@@ -36,16 +42,48 @@ class _SearchScreenState extends State<SearchScreen> {
               },
               child: Container(
                 alignment: Alignment.center,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    hintText: "Nazwa zwierzaka",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28.0),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
-                    suffixIcon: const Icon(Icons.search),
-                  ),
+                child: Autocomplete<String>(
+                  optionsBuilder: (TextEditingValue textEditingValue) {
+                    if (textEditingValue.text == '') {
+                      return const Iterable<String>.empty();
+                    }
+                    return animalsSearch
+                        .where((animal) => animal["name"]
+                            .toString()
+                            .toLowerCase()
+                            .contains(textEditingValue.text.toLowerCase()))
+                        .map((animal) => animal["name"].toString());
+                  },
+                  onSelected: (String selection) {
+                    context.push("/animal?name=$selection");
+
+                    // You can perform any actions with the selected value here
+                  },
+                  fieldViewBuilder: (BuildContext context,
+                      TextEditingController textEditingController,
+                      FocusNode focusNode,
+                      VoidCallback onFieldSubmitted) {
+                    return TextField(
+                      controller: textEditingController,
+                      focusNode: focusNode,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        hintText: "Nazwa zwierzaka",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(28.0),
+                        ),
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 12.0),
+                        suffixIcon: const Icon(Icons.search),
+                      ),
+                      onChanged: (String value) {
+                        // You can perform any actions when the text input changes here
+                      },
+                      onSubmitted: (String value) {
+                        onFieldSubmitted();
+                      },
+                    );
+                  },
                 ),
               ),
             ),
