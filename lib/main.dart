@@ -3,15 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:zooapp/screens/animalgallery.dart';
 import 'package:zooapp/screens/animalphoto.dart';
 import 'package:zooapp/screens/animalscreen.dart';
-import 'package:zooapp/widgets/sql_helper.dart';
 import 'package:zooapp/screens/homescreen.dart';
 import 'package:zooapp/screens/testowa.dart';
 import 'package:zooapp/screens/achievementscreen.dart';
 import 'package:zooapp/screens/mapscreen.dart';
-import 'package:zooapp/screens/achievementscreen.dart';
 import 'package:zooapp/screens/tourprogramscreen.dart';
 import 'package:zooapp/screens/searchscreen.dart';
-import 'package:zooapp/screens/animalscreen.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -164,7 +161,7 @@ final _router = GoRouter(
                       ),
                     );
                   },
-                )
+                ),
               ],
             )
           ],
