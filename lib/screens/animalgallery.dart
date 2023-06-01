@@ -33,8 +33,8 @@ class _AnimalGalleryState extends State<AnimalGallery> {
             .toList();
       } else {
         imagePathList = manifestMap.keys
-            .where(
-                (String key) => key.contains('assets/images/animals/app_photo'))
+            .where((String key) =>
+                key.contains('assets/images/animals/app_photo_small'))
             .toList();
       }
 

@@ -136,7 +136,7 @@ class _AnimalScreenState extends State<AnimalScreen> {
                           itemCount: 4,
                           itemBuilder: (context, index) {
                             final imagePath =
-                                "assets/images/animals/app_photo/${"${widget.name.toLowerCase()} ${index + 1}"}.jpg";
+                                "assets/images/animals/app_photo_small/${"${widget.name.toLowerCase()} ${index + 1}"}.jpg";
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(

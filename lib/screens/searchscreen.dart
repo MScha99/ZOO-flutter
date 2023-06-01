@@ -114,7 +114,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           leading: ClipRRect(
                             borderRadius: BorderRadius.circular(5.0),
                             child: Image.asset(
-                              "assets/images/animals/app_photo/${"${animal.name.toLowerCase()} ${1}"}.jpg",
+                              "assets/images/animals/app_photo_small/${"${animal.name.toLowerCase()} ${1}"}.jpg",
                               fit: BoxFit.cover,
                               width: 100.0,
                               height: 80.0,
