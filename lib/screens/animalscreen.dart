@@ -125,38 +125,37 @@ class _AnimalScreenState extends State<AnimalScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
-                      child: SizedBox(
-                        height: 400.0,
-                        child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 140 / 140,
-                          ),
-                          itemCount: 4,
-                          itemBuilder: (context, index) {
-                            final imagePath =
-                                "assets/images/animals/app_photo_small/${"${widget.name.toLowerCase()} ${index + 1}"}.jpg";
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  context.go(
-                                      "/search/animal/photo?name=${widget.name}&photoFlag=${index + 1}");
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  child: Image.asset(
-                                    imagePath,
-                                    fit: BoxFit.cover,
-                                  ),
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 140 / 140,
+                        ),
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          final imagePath =
+                              "assets/images/animals/app_photo_small/${"${widget.name.toLowerCase()} ${index + 1}"}.jpg";
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                context.push(
+                                    "/search/animal/photo?name=${widget.name}&photoFlag=${index + 1}");
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Image.asset(
+                                  imagePath,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ),
-                    )
+                    ),
                   ],
                 ),
               );
