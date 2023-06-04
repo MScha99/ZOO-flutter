@@ -14,7 +14,8 @@ Widget isPhotographed(var photographed, BuildContext context,
   if (photographed == 1) {
     return GestureDetector(
       onTap: () {
-        context.go("/search/animal/photo?name=${widget.name}&photoFlag=${"0"}");
+        context
+            .push("/search/animal/photo?name=${widget.name}&photoFlag=${"0"}");
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15.0),
@@ -142,7 +143,7 @@ class _AnimalScreenState extends State<AnimalScreen> {
                             child: GestureDetector(
                               onTap: () {
                                 context.push(
-                                    "/search/animal/photo?name=${widget.name}&photoFlag=${index + 1}");
+                                    "/animal/photo?name=${widget.name}&photoFlag=${index + 1}");
                               },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(15.0),

@@ -5,7 +5,6 @@ import 'package:zooapp/screens/homescreen.dart';
 
 import 'package:zooapp/widgets/custompageroute.dart';
 
-
 final image = AssetImage('assets/images/map.jpg');
 
 class MapMarker {
@@ -43,28 +42,28 @@ class _MapScreenState extends State<MapScreen> {
       body: Stack(
         children: [
           InteractiveViewer(
-            minScale: 0.1,
-
-            maxScale: 0.8,
-            constrained: false,
-            boundaryMargin: EdgeInsets.all(75),
-
-            child: Stack(
-              children: [
-                Image.asset(
-                  'assets/images/map.jpg',
-                ),
-                ...markers.map((marker) => Positioned(
-                    left: marker.position.dx - 12,
-                    top: marker.position.dy - 24,
-                    child: IconButton(
-                      icon: Icon(Icons.place, color: Colors.red , size: 100.0,),
-                      onPressed: () => handleMarkerTap(marker),
-                    )
-                ))
-              ],
-            )
-          )
+              minScale: 0.1,
+              maxScale: 0.8,
+              constrained: false,
+              boundaryMargin: EdgeInsets.all(75),
+              child: Stack(
+                children: [
+                  Image.asset(
+                    'assets/images/map.jpg',
+                  ),
+                  ...markers.map((marker) => Positioned(
+                      left: marker.position.dx - 12,
+                      top: marker.position.dy - 24,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.place,
+                          color: Colors.red,
+                          size: 100.0,
+                        ),
+                        onPressed: () => handleMarkerTap(marker),
+                      )))
+                ],
+              ))
         ],
       ),
     );
@@ -72,25 +71,27 @@ class _MapScreenState extends State<MapScreen> {
 
   void handleMarkerTap(MapMarker marker) {
     // Handle taps on a place marking
-    if (marker.name != 'Wejście/Wyjście'){
+    if (marker.name != 'Wejście/Wyjście') {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text(marker.name),
           content: Text('Tutaj znajduje się ${marker.name}.'),
-          
-            actions: [
-              ElevatedButton(
-                child: Icon(Icons.arrow_forward_ios, color: Color.fromARGB(255, 131, 82, 64),),
-                onPressed: () {
-                  context.push("/search/animal?name=${marker.name}");
-                  Navigator.of(context).pop();
-                },
+          actions: [
+            ElevatedButton(
+              child: Icon(
+                Icons.arrow_forward_ios,
+                color: Color.fromARGB(255, 131, 82, 64),
               ),
-            ],
+              onPressed: () {
+                context.push("/animal?name=${marker.name}");
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         ),
       );
-    }else{
+    } else {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(

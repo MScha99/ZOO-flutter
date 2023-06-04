@@ -54,7 +54,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         .map((animal) => animal["name"].toString());
                   },
                   onSelected: (String selection) {
-                    context.push("/search/animal?name=$selection");
+                    context.push("/animal?name=$selection");
 
                     // You can perform any actions with the selected value here
                   },
@@ -123,7 +123,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           title: Text(animal.name),
                           //subtitle: Text(animal.description),
                           onTap: () {
-                            context.push("/search/animal?name=${animal.name}");
+                            context.push("/animal?name=${animal.name}");
                           },
                         );
                       },
