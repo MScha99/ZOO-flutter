@@ -47,15 +47,18 @@ class _AnimalGalleryState extends State<AnimalGallery> {
   }
 
   List<String> extractDataFromAddress(String title, String path) {
-    String filename = path.split('/').last;
-    List<String> nameAndFlag = filename.split('.');
+    String filenameFull = path.split('/').last;
+    String filename = filenameFull.split('.').first;
+    List<String> nameAndFlag = ['', ''];
     if (title == 'Twoje zdjęcia') {
       nameAndFlag[1] = '0';
     } else {
-      nameAndFlag = nameAndFlag[0].split(' ');
+      List<String> filenameSplitted = filename.split(' ');
+      nameAndFlag[1] = filenameSplitted.last;
+      filenameSplitted.removeLast();
+      filename = filenameSplitted.join(' ');
     }
-    nameAndFlag[0] =
-        nameAndFlag[0][0].toUpperCase() + nameAndFlag[0].substring(1);
+    nameAndFlag[0] = filename[0].toUpperCase() + filename.substring(1);
     return nameAndFlag;
   }
 
@@ -82,7 +85,7 @@ class _AnimalGalleryState extends State<AnimalGallery> {
                     onTap: () {
                       List<String> nameAndFlag =
                           extractDataFromAddress(widget.title, imagePath);
-                      context.go(
+                      context.push(
                           "/home/animalgallery/photo?name=${nameAndFlag[0]}&photoFlag=${nameAndFlag[1]}");
                     },
                     child: ClipRRect(
@@ -96,7 +99,7 @@ class _AnimalGalleryState extends State<AnimalGallery> {
                 );
               },
             )
-          : Center(
+          : const Center(
               child:
                   CircularProgressIndicator(), // Placeholder for loading indicator
             ),
