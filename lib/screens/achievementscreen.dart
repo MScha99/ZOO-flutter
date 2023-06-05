@@ -42,6 +42,65 @@ class _AchievementScreenState extends State<AchievementScreen> {
                       //achievementDes: map['achievement_des'],
                     ))
                 .toList();
+
+            
+              bool Asia = false;
+              bool Africa = false;
+              bool Europe = false;
+              bool NorthAmerica = false;
+              bool SouthAmerica = false;
+              bool Australia = false;
+              bool Antarctica = false;
+               
+              int Asianum = 0;
+              int Africanum = 0;
+              int Europenum = 0;
+              int NorthAmericanum = 0;
+              int SouthAmericanum = 0;
+              int Australianum = 0;
+              int Antarcticanum = 0;
+
+              int Asiaall = 0;
+              int Africaall = 0;
+              int Europeall = 0;
+              int NorthAmericaall = 0;
+              int SouthAmericaall = 0;
+              int Australiaall = 0;
+              int Antarcticaall = 0;
+            
+              for (int i = 0; i < animals.length; i++) {
+                if (snapshot.data![i]["continent"] == "Asia"){
+                  Asiaall++;
+                  if (snapshot.data![i]["photographed"] == 1){Asianum++;}}
+
+                if (snapshot.data![i]["continent"] == "Africa"){
+                  Africaall++;
+                  if (snapshot.data![i]["photographed"] == 1){Africanum++;}}
+
+                if (snapshot.data![i]["continent"] == "Europe"){
+                  Europeall++;
+                  if (snapshot.data![i]["photographed"] == 1){Europenum++;}}
+
+                if (snapshot.data![i]["continent"] == "NorthAmerica"){
+                  NorthAmericaall++;
+                  if (snapshot.data![i]["photographed"] == 1){NorthAmericanum++;}}
+
+                if (snapshot.data![i]["continent"] == "SouthAmericanum"){
+                  SouthAmericaall++;
+                  if (snapshot.data![i]["photographed"] == 1){SouthAmericanum++;}}
+
+                if (snapshot.data![i]["continent"] == "Australia"){
+                  Australiaall++;
+                  if (snapshot.data![i]["photographed"] == 1){Australianum++;}}
+
+                if (snapshot.data![i]["continent"] == "Antarctica"){
+                  Antarcticaall++;
+                  if (snapshot.data![i]["photographed"] == 1){Antarcticanum++;}}
+                }
+                
+              Africaall != 0 && Africanum == Africaall ? Africa = true : Africa = false;
+              Antarcticaall != 0 && Antarcticanum == Antarcticaall ? Antarctica = true : Antarctica = false;
+
             double progress() {
               double progressValue = 0.0;
               for (int i = 0; i < animals.length; i++) {
@@ -49,7 +108,14 @@ class _AchievementScreenState extends State<AchievementScreen> {
                     ? progressValue++
                     : progressValue;
               }
-              return progressValue / animals.length;
+              Asia == true ? progressValue++ : progressValue;
+              Africa == true ? progressValue++ : progressValue;
+              Europe == true ? progressValue++ : progressValue;
+              NorthAmerica == true ? progressValue++ : progressValue;
+              SouthAmerica == true ? progressValue++ : progressValue;
+              Australia == true ? progressValue++ : progressValue;
+              Antarctica == true ? progressValue++ : progressValue;
+              return progressValue / (animals.length + 7);
             }
 
             return Column(
@@ -79,13 +145,12 @@ class _AchievementScreenState extends State<AchievementScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: animals.length,
-                    prototypeItem: ListTile(
-                      title: Text(snapshot.data!.first["name"]),
-                    ),
+                    itemCount: animals.length+7,
                     itemBuilder: (context, index) {
+                      
+                      if (index < animals.length) {
                       final animal = animals[index];
-                      return ListTile(
+                      return  ListTile(
                         title: Text(animal.name),
                         subtitle: Text(
                             "Zrób zdjęcie ze zwierzakiem"), //animal.achievement_des
@@ -97,6 +162,106 @@ class _AchievementScreenState extends State<AchievementScreen> {
                                 ? Color.fromARGB(255, 238, 177, 102)
                                 : Colors.grey),
                       );
+                      }else if (index == animals.length) {
+                        return ListTile(
+                              title: Text("Zwierzęta Azji"),
+                              subtitle: Text(
+                                  "Zrób zdjęcie ze wszystkimi zwierzakami pochodzącymi z Azji"),
+                              trailing: Icon(
+                                Africa == true
+                                      ? Icons.check_circle
+                                      : Icons.radio_button_unchecked,
+                                  color: Africa == true
+                                    ? Color.fromARGB(255, 238, 177, 102)
+                                    : Colors.grey),
+                              isThreeLine: true,
+                        );
+                      }else if (index == animals.length + 1) {
+                        return ListTile(
+                          title: Text("Zwierzęta Afryki"),
+                          subtitle: Text(
+                              "Zrób zdjęcie ze wszystkimi zwierzakami pochodzącymi z Afryki"),
+                          trailing: Icon(
+                             Africa == true
+                                  ? Icons.check_circle
+                                  : Icons.radio_button_unchecked,
+                              color: Africa == true
+                                 ? Color.fromARGB(255, 238, 177, 102)
+                                 : Colors.grey),
+                          isThreeLine: true,
+                        );
+                      }else if (index == animals.length + 2) {
+                        return ListTile(
+                          title: Text("Zwierzęta Europy"),
+                          subtitle: Text(
+                              "Zrób zdjęcie ze wszystkimi zwierzakami pochodzącymi z Europy"),
+                          trailing: Icon(
+                             Africa == true
+                                  ? Icons.check_circle
+                                  : Icons.radio_button_unchecked,
+                              color: Africa == true
+                                 ? Color.fromARGB(255, 238, 177, 102)
+                                 : Colors.grey),
+                            isThreeLine: true,
+                        );
+                      }else if (index == animals.length + 3) {
+                        return ListTile(
+                          title: Text("Zwierzęta Ameryki Północnej"),
+                          subtitle: Text(
+                              "Zrób zdjęcie ze wszystkimi zwierzakami pochodzącymi z Ameryki Północnej"),
+                          trailing: Icon(
+                             Africa == true
+                                  ? Icons.check_circle
+                                  : Icons.radio_button_unchecked,
+                              color: Africa == true
+                                 ? Color.fromARGB(255, 238, 177, 102)
+                                 : Colors.grey),
+                                 isThreeLine: true,
+                        );
+                      }else if (index == animals.length + 4) {
+                        return ListTile(
+                          title: Text("Zwierzęta Ameryki Południowej"),
+                          subtitle: Text(
+                              "Zrób zdjęcie ze wszystkimi zwierzakami pochodzącymi z Ameryki Południowej"),
+                          trailing: Icon(
+                             Africa == true
+                                  ? Icons.check_circle
+                                  : Icons.radio_button_unchecked,
+                              color: Africa == true
+                                 ? Color.fromARGB(255, 238, 177, 102)
+                                 : Colors.grey),
+                                 isThreeLine: true,
+                        );
+                      }else if (index == animals.length + 5) {
+                        return ListTile(
+                          title: Text("Zwierzęta Australji"),
+                          subtitle: Text(
+                              "Zrób zdjęcie ze wszystkimi zwierzakami pochodzącymi z Australji"),
+                          trailing: Icon(
+                             Africa == true
+                                  ? Icons.check_circle
+                                  : Icons.radio_button_unchecked,
+                              color: Africa == true
+                                 ? Color.fromARGB(255, 238, 177, 102)
+                                 : Colors.grey),
+                                 isThreeLine: true,
+
+                        );
+                      }else if (index == animals.length + 6) {
+                        return ListTile(
+                          title: Text("Zwierzęta Arktyki i Antarktydy"),
+                          subtitle: Text(
+                              "Zrób zdjęcie ze wszystkimi zwierzakami pochodzącymi z Arktyki i Antarktydy"),
+                          trailing: Icon(
+                             Antarctica == true
+                                  ? Icons.check_circle
+                                  : Icons.radio_button_unchecked,
+                              color: Antarctica == true
+                                 ? Color.fromARGB(255, 238, 177, 102)
+                                 : Colors.grey),
+                                 isThreeLine: true,
+                        );
+                      }
                     },
                   ),
                 ),
@@ -111,4 +276,6 @@ class _AchievementScreenState extends State<AchievementScreen> {
       ),
     );
   }
+
+  
 }
