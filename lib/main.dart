@@ -102,23 +102,14 @@ final _router = GoRouter(
           },
         ),
         GoRoute(
-            parentNavigatorKey: _shellNavigatorKey,
-            path: '/map',
-            pageBuilder: (context, state) {
-              return const NoTransitionPage(
-                child: MapScreen(),
-              );
-            },
-            routes: <RouteBase>[
-              GoRoute(
-                path: 'testowa',
-                pageBuilder: (context, state) {
-                  return const NoTransitionPage(
-                    child: TestowaScreen(),
-                  );
-                },
-              )
-            ]),
+          parentNavigatorKey: _shellNavigatorKey,
+          path: '/map',
+          pageBuilder: (context, state) {
+            return const NoTransitionPage(
+              child: MapScreen(),
+            );
+          },
+        ),
         GoRoute(
             parentNavigatorKey: _shellNavigatorKey,
             path: '/program',
@@ -131,39 +122,37 @@ final _router = GoRouter(
           parentNavigatorKey: _shellNavigatorKey,
           path: '/search',
           pageBuilder: (context, state) {
-            return NoTransitionPage(
+            return const NoTransitionPage(
               child: SearchScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          parentNavigatorKey: _shellNavigatorKey,
+          path: '/animal',
+          pageBuilder: (context, state) {
+            final name = state.queryParameters["name"];
+            return NoTransitionPage(
+              child: AnimalScreen(
+                name: name ?? 'error',
+              ),
             );
           },
           routes: <RouteBase>[
             GoRoute(
               parentNavigatorKey: _shellNavigatorKey,
-              path: 'animal',
+              path: 'photo',
               pageBuilder: (context, state) {
                 final name = state.queryParameters["name"];
+                final photoFlag = state.queryParameters["photoFlag"];
                 return NoTransitionPage(
-                  child: AnimalScreen(
+                  child: AnimalPhoto(
                     name: name ?? 'error',
+                    photoFlag: photoFlag ?? '-1',
                   ),
                 );
               },
-              routes: <RouteBase>[
-                GoRoute(
-                  parentNavigatorKey: _shellNavigatorKey,
-                  path: 'photo',
-                  pageBuilder: (context, state) {
-                    final name = state.queryParameters["name"];
-                    final photoFlag = state.queryParameters["photoFlag"];
-                    return NoTransitionPage(
-                      child: AnimalPhoto(
-                        name: name ?? 'error',
-                        photoFlag: photoFlag ?? '-1',
-                      ),
-                    );
-                  },
-                ),
-              ],
-            )
+            ),
           ],
         ),
       ],
