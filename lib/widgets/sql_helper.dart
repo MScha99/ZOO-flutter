@@ -64,7 +64,6 @@ class SQLHelper {
         'description':
             'Niedźwiedź polarny to duże drapieżne ssaki, żyjące w Arktyce. Mają biały futro i dobrze przystosowane do życia w zimnych warunkach.',
         'achievement_des': 'Zrobiono zdjęcie z niedźwiedziem polarnym',
-        'photographed': 1,
         'continent': 'Antarctica'
       });
       await db.insert('animals', {
@@ -72,7 +71,6 @@ class SQLHelper {
         'description':
             'Pingwin cesarski to gatunek pingwina zamieszkujący Antarktydę. Mają charakterystyczny biało-czarny wygląd i potrafią nurkować na dużą głębokość.',
         'achievement_des': 'Zrobiono zdjęcie z pingwinem cesarskim',
-        'photographed': 1,
         'continent': 'Antarctica'
       });
     });
