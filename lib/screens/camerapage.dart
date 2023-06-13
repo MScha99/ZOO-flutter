@@ -3,6 +3,10 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'package:zooapp/widgets/sql_helper.dart';
 
 // A screen that allows users to take a picture using a given camera.
 class CameraPage extends StatefulWidget {
@@ -101,6 +105,18 @@ class CameraPageState extends State<CameraPage> {
 }
 
 // A widget that displays the picture taken by the user.
+Future<String> getImageDir(String animalName) async {
+  String galleryDirectory = (await getExternalStorageDirectory())!.path;
+  List<String> galleryDirectorySliced = galleryDirectory.split('/');
+  String savedImagePath = '${{
+    galleryDirectorySliced[0],
+    galleryDirectorySliced[1],
+    galleryDirectorySliced[2],
+    galleryDirectorySliced[3],
+  }.join('/')}/Pictures/zooapp/$animalName.jpg';
+  return savedImagePath;
+}
+
 class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
   final String animalName;
@@ -124,10 +140,21 @@ class DisplayPictureScreen extends StatelessWidget {
                   child: Text('Nie'),
                 ),
                 TextButton(
-                  onPressed: () {
-                    String pathToSave =
-                        "assets/images/animals/user_photo/$animalName.jpg";
-                    File(imagePath).copy(pathToSave);
+                  onPressed: () async {
+                    final file = File(imagePath);
+                    List<String> imagePathSliced = imagePath.split('/');
+                    imagePathSliced.last = "$animalName.jpg";
+                    String newImagePath = imagePathSliced.join('/');
+                    file.renameSync(newImagePath);
+                    await GallerySaver.saveImage(
+                      newImagePath,
+                      albumName: 'zooapp',
+                    );
+                    String animalNameUpper =
+                        animalName.substring(0, 1).toUpperCase() +
+                            animalName.substring(1).toLowerCase();
+                    SQLHelper.updateAnimalPropertyByName(
+                        animalNameUpper, 'photographed', '1');
                     Navigator.of(context).pop(true);
                   },
                   child: Text('Tak'),

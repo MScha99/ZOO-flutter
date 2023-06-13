@@ -41,7 +41,6 @@ class SQLHelper {
         'description':
             'Słoń afrykański to największe lądowe zwierzę na Ziemi. Spotykane są na sawannach, w lasach i na pustyniach w Afryce.',
         'achievement_des': 'Zrobiono zdjęcie ze słoniem afrykańskim',
-        'photographed': 1,
         'continent': 'Africa'
       });
       await db.insert('animals', {
@@ -105,6 +104,13 @@ class SQLHelper {
     final db = await SQLHelper.db();
     await db.update('animals', {property: value},
         where: 'id = ?', whereArgs: [id]);
+  }
+
+  static Future<void> updateAnimalPropertyByName(
+      String name, String property, dynamic value) async {
+    final db = await SQLHelper.db();
+    await db.update('animals', {property: value},
+        where: 'name = ?', whereArgs: [name]);
   }
 
 //   static Future<List<Map<String, dynamic>>> getProgram() async {

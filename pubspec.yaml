@@ -38,6 +38,9 @@ dependencies:
   go_router: ^7.1.1
   sqflite: ^2.2.7
   camera: ^0.10.5+2
+  gallery_saver: ^2.3.2
+  path_provider: ^2.0.5
+
 
 dev_dependencies:
   flutter_test:
