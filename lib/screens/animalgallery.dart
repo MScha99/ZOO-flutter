@@ -2,6 +2,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
+
+Future<String> getImageDir() async {
+  String galleryDirectory = (await getExternalStorageDirectory())!.path;
+  List<String> galleryDirectorySliced = galleryDirectory.split('/');
+  String savedImagePath = '${{
+    galleryDirectorySliced[0],
+    galleryDirectorySliced[1],
+    galleryDirectorySliced[2],
+    galleryDirectorySliced[3],
+  }.join('/')}/Pictures/zooapp/';
+  return savedImagePath;
+}
 
 class AnimalGallery extends StatefulWidget {
   const AnimalGallery({super.key, required this.title});
@@ -27,10 +40,9 @@ class _AnimalGalleryState extends State<AnimalGallery> {
           Map<String, dynamic>.from(jsonDecode(manifestContent));
       final List<String> imagePathList;
       if (widget.title == 'Twoje zdjęcia') {
-        imagePathList = manifestMap.keys
-            .where((String key) =>
-                key.contains('assets/images/animals/user_photo'))
-            .toList();
+        String path = await getImageDir();
+        imagePathList =
+            manifestMap.keys.where((String key) => key.contains(path)).toList();
       } else {
         imagePathList = manifestMap.keys
             .where((String key) =>

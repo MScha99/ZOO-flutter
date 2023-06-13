@@ -9,18 +9,21 @@ TextStyle greyboxStyle = const TextStyle(
   fontSize: 14,
 );
 
-Widget isPhotographed(var photographed, BuildContext context,
-    AnimalScreen widget, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+Future<Widget> isPhotographed(
+    var photographed,
+    BuildContext context,
+    AnimalScreen widget,
+    AsyncSnapshot<List<Map<String, dynamic>>> snapshot) async {
   if (photographed == 1) {
+    String imageDir = await getImageDir(widget.name.toLowerCase());
     return GestureDetector(
       onTap: () {
-        context
-            .push("/search/animal/photo?name=${widget.name}&photoFlag=${"0"}");
+        context.push("/animal/photo?name=${widget.name}&photoFlag=${"0"}");
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15.0),
         child: Image.asset(
-          "assets/images/animals/user_photo/${widget.name.toLowerCase()}.jpg",
+          imageDir,
           fit: BoxFit.cover,
           width: 280.0,
           height: 280.0,
@@ -100,11 +103,15 @@ class _AnimalScreenState extends State<AnimalScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 32.0),
-                      child: isPhotographed(snapshot.data![0]['photographed'],
-                          context, widget, snapshot),
-                    ),
+                        padding:
+                            const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 32.0),
+                        child: FutureBuilder<Widget>(
+                          builder: (context, smallsnapshot) {
+                            isPhotographed(snapshot.data![0]['photographed'],
+                                context, widget, snapshot);
+                            throw Text("Unexpected error");
+                          },
+                        )),
                     const Text(
                       'OPIS',
                       style: TextStyle(
